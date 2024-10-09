@@ -105,13 +105,13 @@
         }
 
         .container {
-            max-width: 1220px;
+            max-width: 1120px;
             margin: 0 auto;
             padding: 0 10px;
         }
 
         .video-header {
-            padding: 34px 0;
+            padding: 36px 0;
         }
 
         .video-header--full {
@@ -123,6 +123,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .video-header__link-image {
+            max-width: 323px;
         }
 
         .video-header__link-arrow {
@@ -157,7 +161,7 @@
         .video-section__item {
             display: none;
             width: 100%;
-            height: 608px;
+            height: 557px;
             border-radius: 32px;
             -o-object-fit: cover;
             object-fit: cover;
@@ -169,7 +173,7 @@
 
         .video-section__item--full {
             height: auto;
-            border-radius: unset;
+            border-radius: 0;
             -o-object-fit: unset;
             object-fit: unset;
         }
@@ -339,12 +343,14 @@
         }
 
         .bottom-play-button {
-            width: 20px;
-            height: 20px;
+            position: relative;
+            top: -1px;
+            width: 22px;
+            height: 22px;
             margin-right: 6px;
             background-image: url(https://avatars.mds.yandex.net/get-lpc/12373972/ed472ce3-d8bc-4591-908e-07940d2f07fd/orig);
             background-repeat: no-repeat;
-            background-position: center;
+            background-size: contain;
             transition: background-image 0.2s ease-in-out;
         }
 
@@ -779,6 +785,10 @@
                 z-index: 1;
             }
 
+            .video-section__container--full {
+                height: calc(100vh - 40px);
+            }
+
             .video-section__wrapper {
                 margin-bottom: 59px;
             }
@@ -798,19 +808,23 @@
             }
 
             .video-section__item {
-                height: 188px;
+                height: 220px;
                 border-radius: 16px;
             }
 
             .video-section__item--full {
                 height: 100%;
-                border-radius: unset;
+                border-radius: 0;
                 -o-object-fit: unset;
                 object-fit: unset;
             }
 
             .video-section__content {
                 border-radius: 16px;
+            }
+
+            .video-section__content--full {
+                border-radius: 0;
             }
 
             .video-section__content-top {
@@ -916,7 +930,7 @@
                 bottom: 42px;
                 left: revert-layer;
                 width: 335px;
-                max-height: 36vh;
+                max-height: 350px;
                 border-radius: 10px;
             }
 
@@ -1013,7 +1027,7 @@
                 content: "";
                 display: none;
                 width: 100vw;
-                height: 100vh;
+                height: 200vh;
                 top: 0;
                 left: 0;
                 background-color: #212121;
@@ -1031,7 +1045,7 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 100vh;
+                height: 100%;
                 padding: 0 10px;
                 margin: 0;
             }
@@ -1039,7 +1053,7 @@
             .share__button {
                 position: absolute;
                 padding: 0;
-                top: 264px;
+                top: 300px;
                 width: 34px;
                 height: 34px;
                 border-radius: 8px;
@@ -1049,7 +1063,9 @@
             .share__content {
                 position: absolute;
                 max-width: 335px;
-                bottom: 20px;
+                height: -moz-fit-content;
+                height: fit-content;
+                top: 300px;
                 left: calc(50% - 345px / 2);
                 z-index: 2;
             }
@@ -1127,7 +1143,7 @@
             .share__pop-up {
                 width: 100%;
                 padding: 0 10px;
-                bottom: 0;
+                bottom: -44px;
                 font-size: 14px;
                 color: #1e1e1e;
             }
