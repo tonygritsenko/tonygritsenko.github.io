@@ -114,6 +114,11 @@
             padding: 34px 0;
         }
 
+        .video-header--full {
+            visibility: hidden;
+            opacity: 0;
+        }
+
         .video-header__wrapper {
             display: flex;
             justify-content: space-between;
@@ -129,7 +134,13 @@
         }
 
         .video-section__container--full {
+            position: fixed;
             display: flex;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 10;
         }
 
         .video-section__wrapper {
@@ -440,7 +451,7 @@
             bottom: 46px;
             right: 0;
             width: 500px;
-            max-height: 551px;
+            max-height: 70vh;
             background-color: #212121;
             border: 1px solid #4c4c4c;
             border-radius: 20px;
@@ -558,6 +569,11 @@
 
         .bottom-section {
             padding: 16px 0;
+        }
+
+        .bottom-section--full {
+            visibility: hidden;
+            opacity: 0;
         }
 
         .shade {
@@ -707,6 +723,11 @@
 
         .video-footer {
             padding: 48px 0 32px;
+        }
+
+        .video-footer--full {
+            visibility: hidden;
+            opacity: 0;
         }
 
         .video-footer__wrapper,
@@ -895,7 +916,7 @@
                 bottom: 42px;
                 left: revert-layer;
                 width: 335px;
-                max-height: 287px;
+                max-height: 36vh;
                 border-radius: 10px;
             }
 
@@ -1027,11 +1048,9 @@
 
             .share__content {
                 position: absolute;
-                justify-self: center;
                 max-width: 335px;
-                right: 10px;
                 bottom: 20px;
-                left: 10px;
+                left: calc(50% - 345px / 2);
                 z-index: 2;
             }
 
@@ -1180,6 +1199,12 @@
             .series__wrapper--active {
                 display: flex;
             }
+
+            .share__content {
+                max-width: calc(100vw - 20px);
+                right: 10px;
+                left: 10px;
+            }
         }
 
         @media (max-width: 340px) {
@@ -1206,10 +1231,10 @@
             <div class="video-section__container">
                 <div class="video-section__wrapper">
                     <div id="videoContainer" class="video-section__list">
-                        <video id="video-1" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/Ya_Kaliningad_sb%2003%20master%2002_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/12602567/9962b200-d752-4cff-9f9b-ae14a9180c20/orig"></video>
-                        <video id="video-2" class="video-section__item" src=" https://lpc-ext.s3.yandex.net/landings_travel/Final ДН Питер_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/12602567/92deccdf-c2a6-4636-8a01-c28310f266b5/orig"></video>
-                        <video id="video-3" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/FINAL%20DN%20SOCHI_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/10116223/e495305b-8f90-4779-83ad-fbb6884c2bc0/orig"></video>
-                        <video id="video-4" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/DN_Moscow_s2e4_FINAL_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/10116223/47eff090-62ac-45b0-a691-3edd343130ec/orig"></video>
+                        <video id="video-1" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/Ya_Kaliningad_sb%2003%20master%2002_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/12602567/9962b200-d752-4cff-9f9b-ae14a9180c20/orig" playsinline></video>
+                        <video id="video-2" class="video-section__item" src=" https://lpc-ext.s3.yandex.net/landings_travel/Final ДН Питер_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/12602567/92deccdf-c2a6-4636-8a01-c28310f266b5/orig" playsinline></video>
+                        <video id="video-3" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/FINAL%20DN%20SOCHI_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/10116223/e495305b-8f90-4779-83ad-fbb6884c2bc0/orig" playsinline></video>
+                        <video id="video-4" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/DN_Moscow_s2e4_FINAL_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/10116223/47eff090-62ac-45b0-a691-3edd343130ec/orig" playsinline></video>
                     </div>
                     <div class="video-section__content">
                         <button class="full-screen-close">
