@@ -486,7 +486,7 @@ function handleFullscreen() {
     if (videoContainer.requestFullscreen) {
       videoContainer.requestFullscreen();
     } else if (videoContainer.webkitRequestFullscreen) {
-      videoContainer.webkitRequestFullscreen();
+      videoContainer.webkitEnterFullscreen();
     } else if (videoContainer.mozRequestFullScreen) {
       videoContainer.mozRequestFullScreen();
     } else if (videoContainer.msRequestFullscreen) {
