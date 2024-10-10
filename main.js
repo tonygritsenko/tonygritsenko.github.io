@@ -4,6 +4,11 @@
     "video-2": document.getElementById("video-2"),
     "video-3": document.getElementById("video-3"),
     "video-4": document.getElementById("video-4"),
+    "video-5": document.getElementById("video-5"),
+    "video-6": document.getElementById("video-6"),
+    "video-7": document.getElementById("video-7"),
+    "video-8": document.getElementById("video-8"),
+    "video-9": document.getElementById("video-9"),
   };
 
   const descriptions = {
@@ -11,6 +16,11 @@
     "video-2": document.getElementById("description-2"),
     "video-3": document.getElementById("description-3"),
     "video-4": document.getElementById("description-4"),
+    "video-5": document.getElementById("description-5"),
+    "video-6": document.getElementById("description-6"),
+    "video-7": document.getElementById("description-7"),
+    "video-8": document.getElementById("description-8"),
+    "video-9": document.getElementById("description-9"),
   };
 
   let currentVideoIndex = 0; // Start with the first video
@@ -472,7 +482,6 @@
   const fullScreenClose = document.querySelector(".full-screen-close");
 
   const series = document.querySelector(".series");
-  const currentVideo = videos[videoKeys[currentVideoIndex]];
 
   function toggleFullscreenClass() {
     header.classList.toggle("video-header--full");
@@ -489,7 +498,14 @@
     fullScreenButton.classList.toggle("full-screen-button--opened");
     fullScreenClose.classList.toggle("full-screen-close--full");
 
-    currentVideo.classList.toggle("video-section__item--full");
+   
+    for (const key in videos) {
+      if (videos.hasOwnProperty(key)) {
+        const video = videos[key];
+        video.classList.toggle("video-section__item--full");
+      }
+    }
+
     videoContent.classList.toggle("video-section__content--full");
 
     contentTop.classList.toggle("video-section__content-top--full");
@@ -547,8 +563,6 @@
     shareContent.classList.remove("share__content--active");
     shareButton.classList.remove("share__button--active");
     sharePopUp.classList.remove("share__pop-up--active");
-
-    // shareContent.classList.remove("share__content--mobile");
 
     shade.classList.remove("shade--active");
     document.body.classList.remove("stop-scroll");
