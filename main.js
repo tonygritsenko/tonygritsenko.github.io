@@ -26,6 +26,7 @@
   let currentVideoIndex = 0; // Start with the first video
   const videoKeys = Object.keys(videos);
   const videoContent = document.querySelector(".video-section__content");
+  const videoWrapper = document.querySelector(".video-section__wrapper");
 
   // Hide the content function
   const seriesDropdownButton = document.getElementById("seriesDropdownButton");
@@ -203,13 +204,15 @@
     hideContent(currentVideo);
   }
 
-  playButton.addEventListener("click", togglePlayPause);
-  bottomPlayButton.addEventListener("click", togglePlayPause);
+  videoWrapper.addEventListener("click", (event) => {
+    if (event.target.closest(".video-section__bottom")) {
+      return;
+    }
 
-  // Add event listener for video click
-  Object.values(videos).forEach((video) => {
-    video.addEventListener("click", togglePlayPause);
+    togglePlayPause();
   });
+
+  bottomPlayButton.addEventListener("click", togglePlayPause);
 
   // Add event listener for space bar press
   document.addEventListener("keydown", (event) => {
@@ -470,7 +473,6 @@
   const header = document.querySelector(".video-header");
 
   const videoContainer = document.querySelector(".video-section__container");
-  const videoWrapper = document.querySelector(".video-section__wrapper");
 
   const contentTop = document.querySelector(".video-section__content-top");
   const sectionBottom = document.querySelector(".video-section__bottom");
@@ -498,7 +500,6 @@
     fullScreenButton.classList.toggle("full-screen-button--opened");
     fullScreenClose.classList.toggle("full-screen-close--full");
 
-   
     for (const key in videos) {
       if (videos.hasOwnProperty(key)) {
         const video = videos[key];
@@ -549,16 +550,12 @@
   });
 
   document.body.addEventListener("click", (event) => {
-    if (event.target.closest(".series")) {
+    if (event.target.closest(".series") || event.target.closest(".share")) {
       return;
     }
 
     seriesDropdown.classList.remove("series__wrapper--active");
     seriesDropdownButton.classList.remove("series__button--active");
-
-    if (event.target.closest(".share")) {
-      return;
-    }
 
     shareContent.classList.remove("share__content--active");
     shareButton.classList.remove("share__button--active");
