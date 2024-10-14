@@ -470,59 +470,160 @@
   });
 
   // Fullscreen
-  const header = document.querySelector(".video-header");
+const fullScreenButton = document.getElementById("fullScreen");
+const videoContainer = document.querySelector(".video-section__container");
+const fullScreenClose = document.querySelector(".full-screen-close");
+const contentTop = document.querySelector(".video-section__content-top");
+const sectionBottom = document.querySelector(".video-section__bottom");
 
-  const videoContainer = document.querySelector(".video-section__container");
+const series = document.querySelector(".series");
+const currentVideo = videos[videoKeys[currentVideoIndex]];
 
-  const contentTop = document.querySelector(".video-section__content-top");
-  const sectionBottom = document.querySelector(".video-section__bottom");
-
-  const bottom = document.querySelector(".bottom-section");
-  const footer = document.querySelector(".video-footer");
-
-  const fullScreenButton = document.getElementById("fullScreen");
-  const fullScreenClose = document.querySelector(".full-screen-close");
-
-  const series = document.querySelector(".series");
-
-  function toggleFullscreenClass() {
-    header.classList.toggle("video-header--full");
-
-    videoContainer.classList.toggle("video-section__container--full");
-    videoWrapper.classList.toggle("video-section__wrapper--full");
-
-    series.classList.toggle("series--full");
-    seriesClose.classList.toggle("series__close--full");
-
-    seriesDropdownButton.classList.toggle("series__button--full");
-    seriesDropdown.classList.toggle("series__wrapper--full");
-
-    fullScreenButton.classList.toggle("full-screen-button--opened");
-    fullScreenClose.classList.toggle("full-screen-close--full");
-
-    for (const key in videos) {
-      if (videos.hasOwnProperty(key)) {
-        const video = videos[key];
-        video.classList.toggle("video-section__item--full");
-      }
-    }
-
-    videoContent.classList.toggle("video-section__content--full");
-
-    contentTop.classList.toggle("video-section__content-top--full");
-    sectionBottom.classList.toggle("video-section__bottom--full");
-
-    bottom.classList.toggle("bottom-section--full");
-    footer.classList.toggle("video-footer--full");
+function handleFullscreen() {
+  if (isFullscreen()) {
+    // The video is in fullscreen mode
+    exitFullscreen();
+    setFullscreenData(false);
+  } else {
+    // The video is not in fullscreen mode
+    requestFullscreen(videoContainer);
+    setFullscreenData(true);
   }
+}
 
-  fullScreenButton.addEventListener("click", (e) => {
-    toggleFullscreenClass();
-  });
+function setFullscreenData(state) {
+  videoContainer.setAttribute("data-fullscreen", !!state);
+}
 
-  fullScreenClose.addEventListener("click", (e) => {
-    toggleFullscreenClass();
-  });
+function isFullscreen() {
+  return !!(
+    document.fullscreenElement ||
+    document.mozFullScreenElement ||
+    document.webkitFullscreenElement ||
+    document.msFullscreenElement
+  );
+}
+
+function requestFullscreen(element) {
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+}
+
+function exitFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  }
+}
+
+document.addEventListener("fullscreenchange", (e) => {
+  setFullscreenData(isFullscreen());
+
+  videoContainer.classList.toggle("video-section__container--full");
+  videoWrapper.classList.toggle("video-section__wrapper--full");
+
+  series.classList.toggle("series--full");
+  seriesClose.classList.toggle("series__close--full");
+
+  seriesDropdownButton.classList.toggle("series__button--full");
+  seriesDropdown.classList.toggle("series__wrapper--full");
+
+  fullScreenButton.classList.toggle("full-screen-button--opened");
+  fullScreenClose.classList.toggle("full-screen-close--full");
+
+  currentVideo.classList.toggle("video-section__item--full");
+  videoContent.classList.toggle("video-section__content--full");
+
+  contentTop.classList.toggle("video-section__content-top--full");
+  sectionBottom.classList.toggle("video-section__bottom--full");
+});
+
+document.addEventListener("mozfullscreenchange", (e) => {
+  setFullscreenData(isFullscreen());
+
+  videoContainer.classList.toggle("video-section__container--full");
+  videoWrapper.classList.toggle("video-section__wrapper--full");
+
+  series.classList.toggle("series--full");
+  seriesClose.classList.toggle("series__close--full");
+
+  seriesDropdownButton.classList.toggle("series__button--full");
+  seriesDropdown.classList.toggle("series__wrapper--full");
+
+  fullScreenButton.classList.toggle("full-screen-button--opened");
+  fullScreenClose.classList.toggle("full-screen-close--full");
+
+  currentVideo.classList.toggle("video-section__item--full");
+  videoContent.classList.toggle("video-section__content--full");
+
+  contentTop.classList.toggle("video-section__content-top--full");
+  sectionBottom.classList.toggle("video-section__bottom--full");
+});
+
+document.addEventListener("webkitfullscreenchange", (e) => {
+  setFullscreenData(isFullscreen());
+
+  videoContainer.classList.toggle("video-section__container--full");
+  videoWrapper.classList.toggle("video-section__wrapper--full");
+
+  series.classList.toggle("series--full");
+  seriesClose.classList.toggle("series__close--full");
+
+  seriesDropdownButton.classList.toggle("series__button--full");
+  seriesDropdown.classList.toggle("series__wrapper--full");
+
+  fullScreenButton.classList.toggle("full-screen-button--opened");
+  fullScreenClose.classList.toggle("full-screen-close--full");
+
+  currentVideo.classList.toggle("video-section__item--full");
+  videoContent.classList.toggle("video-section__content--full");
+
+  contentTop.classList.toggle("video-section__content-top--full");
+  sectionBottom.classList.toggle("video-section__bottom--full");
+});
+
+document.addEventListener("MSFullscreenChange", (e) => {
+  setFullscreenData(isFullscreen());
+
+  videoContainer.classList.toggle("video-section__container--full");
+  videoWrapper.classList.toggle("video-section__wrapper--full");
+
+  series.classList.toggle("series--full");
+  seriesClose.classList.toggle("series__close--full");
+
+  seriesDropdownButton.classList.toggle("series__button--full");
+  seriesDropdown.classList.toggle("series__wrapper--full");
+
+  fullScreenButton.classList.toggle("full-screen-button--opened");
+  fullScreenClose.classList.toggle("full-screen-close--full");
+
+  currentVideo.classList.toggle("video-section__item--full");
+  videoContent.classList.toggle("video-section__content--full");
+
+  contentTop.classList.toggle("video-section__content-top--full");
+  sectionBottom.classList.toggle("video-section__bottom--full");
+});
+
+fullScreenButton.addEventListener("click", (e) => {
+  handleFullscreen();
+});
+
+fullScreenClose.addEventListener("click", (e) => {
+  handleFullscreen();
+});
+
 
   // Share
   const shareButton = document.querySelector(".share__button");
