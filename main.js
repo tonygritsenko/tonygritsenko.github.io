@@ -1,26 +1,10 @@
 (function () {
   const videos = {
     "video-1": document.getElementById("video-1"),
-    "video-2": document.getElementById("video-2"),
-    "video-3": document.getElementById("video-3"),
-    "video-4": document.getElementById("video-4"),
-    "video-5": document.getElementById("video-5"),
-    "video-6": document.getElementById("video-6"),
-    "video-7": document.getElementById("video-7"),
-    "video-8": document.getElementById("video-8"),
-    "video-9": document.getElementById("video-9"),
   };
 
   const descriptions = {
     "video-1": document.getElementById("description-1"),
-    "video-2": document.getElementById("description-2"),
-    "video-3": document.getElementById("description-3"),
-    "video-4": document.getElementById("description-4"),
-    "video-5": document.getElementById("description-5"),
-    "video-6": document.getElementById("description-6"),
-    "video-7": document.getElementById("description-7"),
-    "video-8": document.getElementById("description-8"),
-    "video-9": document.getElementById("description-9"),
   };
 
   let currentVideoIndex = 0; // Start with the first video
@@ -471,7 +455,7 @@
 
   // Fullscreen
 const fullScreenButton = document.getElementById("fullScreen");
-const videoContainer = document.querySelector(".video-section__container");
+const videoContainer = document.getElementById("video-1")
 const fullScreenClose = document.querySelector(".full-screen-close");
 const contentTop = document.querySelector(".video-section__content-top");
 const sectionBottom = document.querySelector(".video-section__bottom");

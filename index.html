@@ -1,1496 +1,1605 @@
 <!DOCTYPE html>
 <html lang="ru">
-
-<head>
+  <head>
     <title>Яндекс Путешествия</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        html,
-        body,
-        div,
-        span,
-        object,
-        iframe,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        ol,
-        ul,
-        li,
-        fieldset,
-        form,
-        label,
-        legend article,
-        footer,
-        header nav section {
-            margin: 0;
-            padding: 0;
-            border: 0;
-            font-size: 100%;
-            font: inherit;
-            vertical-align: baseline;
-        }
+      html,
+      body,
+      div,
+      span,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend article,
+      footer,
+      header nav section {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
 
-        body {
-            font-size: 16px;
-            line-height: 100%;
-            font-weight: 400;
-            color: #ffffff;
-            background-color: #212121;
-        }
+      body {
+        font-size: 16px;
+        line-height: 100%;
+        font-weight: 400;
+        color: #ffffff;
+        background-color: #212121;
+      }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-            cursor: pointer;
-        }
+      a {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+      }
 
-        a:hover {
-            color: white !important;
-        }
+      a:hover {
+        color: white !important;
+      }
 
-        ol,
-        ul {
-            list-style: none;
-        }
+      ol,
+      ul {
+        list-style: none;
+      }
 
-        button {
-            color: inherit;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
+      button {
+        color: inherit;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
 
-        *:focus-visible {
-            outline: 0;
-        }
+      *:focus-visible {
+        outline: 0;
+      }
 
-        @font-face {
-            font-family: "YS Display";
-            src: url("./fonts/YSDisplay-Regular.woff2") format("woff2"), url("./fonts/YSDisplay-Regular.woff") format("woff");
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-        }
+      @font-face {
+        font-family: "YS Display";
+        src: url("./fonts/YSDisplay-Regular.woff2") format("woff2"),
+          url("./fonts/YSDisplay-Regular.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
 
-        @font-face {
-            font-family: "YS Display";
-            src: url("./fonts/YSDisplay-Medium.woff2") format("woff2"), url("./fonts/YSDisplay-Medium.woff") format("woff");
-            font-weight: 500;
-            font-style: normal;
-            font-display: swap;
-        }
+      @font-face {
+        font-family: "YS Display";
+        src: url("./fonts/YSDisplay-Medium.woff2") format("woff2"),
+          url("./fonts/YSDisplay-Medium.woff") format("woff");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
 
-        @font-face {
-            font-family: "Spektra";
-            src: url("./fonts/Spektra.woff2") format("woff2"), url("./fonts/Spektra.woff") format("woff");
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-        }
+      @font-face {
+        font-family: "Spektra";
+        src: url("./fonts/Spektra.woff2") format("woff2"),
+          url("./fonts/Spektra.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
 
-        html,
-        body {
-            font-family: "YS Display", Helvetica, Spektra, sans-serif !important;
-        }
+      html,
+      body {
+        font-family: "YS Display", Helvetica, Spektra, sans-serif !important;
+      }
 
-        .container {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 0 10px;
-        }
+      .container {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 10px;
+      }
 
+      .video-header {
+        padding: 36px 0;
+      }
+
+      .video-header--full {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .video-header__wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .video-header__link-image {
+        max-width: 323px;
+      }
+
+      .video-header__link-arrow {
+        margin-right: 8px;
+      }
+
+      .video-section__container {
+        position: relative;
+      }
+
+      .video-section__container--full {
+        position: fixed;
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 10;
+      }
+
+      .video-section__wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+      }
+
+      .video-section__list {
+        width: 100%;
+      }
+
+      .video-section__item {
+        display: none;
+        width: 100%;
+        height: 500px;
+        border-radius: 32px;
+        -o-object-fit: cover;
+        object-fit: cover;
+      }
+
+      .video-section__item--active {
+        display: flex;
+      }
+
+      .video-section__item--full {
+        height: auto;
+        border-radius: 0;
+        -o-object-fit: unset;
+        object-fit: unset;
+      }
+
+      .video-section__content {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5)
+        );
+        border-radius: 32px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: visibility 0.4s ease-in-out, opacity 0.4s ease-in-out;
+      }
+
+      .video-section__content--hidden {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .video-section__content--full {
+        border-radius: unset;
+      }
+
+      .video-section__content-top {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 32px;
+      }
+
+      .video-section__content-top img {
+        margin-bottom: 10px;
+        width: 153px;
+        height: 102px;
+      }
+
+      .video-section__label {
+        display: none;
+      }
+
+      .video-section__label--active {
+        display: block;
+      }
+
+      .video-section__bottom {
+        padding: 0 24px 16px 24px;
+        z-index: 1;
+      }
+
+      .video-section__controls,
+      .video-section__controls-left,
+      .video-section__controls-wrapper,
+      .video-section__controls-right {
+        display: flex;
+        align-items: center;
+      }
+
+      .video-section__controls {
+        padding-top: 8px;
+        gap: 32px;
+      }
+
+      .video-section__controls-left {
+        margin-right: auto;
+        gap: 24px;
+      }
+
+      .video-section__controls-wrapper {
+        gap: 10px;
+      }
+
+      .video-section__controls-wrapper--pt {
+        padding-top: 6px;
+      }
+
+      .full-screen-close {
+        position: absolute;
+        display: none;
+        top: 32px;
+        right: 32px;
+      }
+
+      .full-screen-close--full {
+        display: block;
+        z-index: 1;
+      }
+
+      .play-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .play-button__image {
+        position: absolute;
+        -o-object-fit: cover;
+        object-fit: cover;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      .play-button__image--active {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .progress {
+        position: relative;
+        margin-bottom: 12px;
+        width: 100%;
+        transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      }
+
+      .progress--hidden {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .progress__time {
+        position: absolute;
+        padding: 4px 8px;
+        border-radius: 4px;
+        display: none;
+        top: -30px;
+        transform: translateX(-50%);
+      }
+
+      .progress__time--active {
+        display: flex;
+      }
+
+      .progress__bar {
+        position: relative;
+        background-color: #ffffff;
+        height: 4px;
+        border-radius: 100px;
+        cursor: pointer;
+      }
+
+      .progress__fill {
+        height: 100%;
+        width: 0;
+        background-color: #ffe800;
+        border-radius: 100px;
+        transition: width 0.2s ease;
+      }
+
+      .progress__indicator {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background-color: #ffe800;
+        border-radius: 50%;
+        top: -4px;
+        transition: left 0.2s ease;
+      }
+
+      .bottom-play-button {
+        position: relative;
+        top: -1px;
+        width: 22px;
+        height: 22px;
+        margin-right: 6px;
+        background-image: url(https://avatars.mds.yandex.net/get-lpc/12373972/ed472ce3-d8bc-4591-908e-07940d2f07fd/orig);
+        background-repeat: no-repeat;
+        background-size: contain;
+        transition: background-image 0.2s ease-in-out;
+      }
+
+      .bottom-play-button--paused {
+        background-image: url(https://avatars.mds.yandex.net/get-lpc/10116223/6d5891fd-cf8a-400a-9b8d-91d5b1d29f93/orig);
+      }
+
+      .volume-control {
+        position: relative;
+      }
+
+      .volume-button {
+        width: 28px;
+        height: 28px;
+        background-image: url(https://avatars.mds.yandex.net/get-lpc/12373972/808e3ddf-740a-47f8-8581-76ae6f317c15/orig);
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .volume-button--muted {
+        background-image: url(https://avatars.mds.yandex.net/get-lpc/10116223/0b708279-4208-486d-b9d9-ca424ef47503/orig);
+      }
+
+      .volume-bar {
+        position: absolute;
+        left: 10px;
+        width: 3px;
+        height: 75px;
+        bottom: 33px;
+        background-color: #9a8e11;
+        border-radius: 3px;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        cursor: pointer;
+      }
+
+      .volume-bar::after {
+        position: absolute;
+        content: "";
+        width: 28px;
+        height: 85px;
+        top: -5px;
+        left: -12px;
+      }
+
+      .volume-fill {
+        width: 100%;
+        background-color: #ffffff;
+        border-radius: 3px;
+      }
+
+      .volume-indicator {
+        width: 12px;
+        height: 12px;
+        background-color: #e9d404;
+        border-radius: 50%;
+        position: absolute;
+        left: -4.5px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .volume-control:hover .volume-bar,
+      .volume-bar:hover .volume-bar {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .series {
+        position: absolute;
+        display: flex;
+        z-index: 1;
+        right: 69px;
+        bottom: 12px;
+      }
+
+      .series__button {
+        display: flex;
+        align-items: center;
+        padding: 11px 15px;
+        gap: 6px;
+        font-size: 16px;
+        color: #212121;
+        background-color: #ffffff;
+        border-radius: 12px;
+        transition: background-color 0.3s ease-in-out,
+          visibility 0.4s ease-in-out, opacity 0.4s ease-in-out;
+      }
+
+      .series__button--active {
+        background-color: #ffe800;
+      }
+
+      .series__button--hidden {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .series__wrapper {
+        position: absolute;
+        display: none;
+        flex-direction: column;
+        flex-shrink: 0;
+        bottom: 46px;
+        right: 0;
+        width: 500px;
+        max-height: 500px;
+        background-color: #212121;
+        border: 1px solid #4c4c4c;
+        border-radius: 20px;
+      }
+
+      .series__wrapper--active {
+        display: flex;
+      }
+
+      .series__close {
+        align-self: flex-end;
+        margin: 0 24px;
+        padding: 24px 0 20px;
+        width: -moz-fit-content;
+        width: fit-content;
+      }
+
+      .series__border {
+        margin: 0 24px;
+        height: 1px;
+        background-color: #4c4c4c;
+      }
+
+      .series__list {
+        padding-left: 24px;
+        padding-bottom: 24px;
+        overflow-y: auto;
+      }
+
+      .series__list::-webkit-scrollbar {
+        width: 2px;
+      }
+
+      .series__list::-webkit-scrollbar-thumb {
+        background-color: #eee;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+
+      .series__list::-webkit-scrollbar-track {
+        margin-bottom: 25px;
+        background: transparent;
+      }
+
+      .series__item {
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        margin-right: 24px;
+        padding: 20px 0;
+        gap: 12px;
+        border-bottom: 1px solid #4c4c4c;
+        cursor: pointer;
+        transition: color 0.2s ease-in-out;
+      }
+
+      .series__item::after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        top: 10px;
+        bottom: 10px;
+        border-radius: 12px;
+        transition: background-color 0.2s ease-in-out;
+      }
+
+      .series__item:hover {
+        color: #222222;
+      }
+
+      .series__item:hover::after {
+        background-color: #ffe800;
+      }
+
+      .series__item-image {
+        max-width: 140px;
+        width: 100%;
+        min-height: 90px;
+        background-color: #d9d9d9;
+        -o-object-fit: cover;
+        object-fit: cover;
+        border-radius: 10px;
+        z-index: 1;
+      }
+
+      .series__item-right {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1;
+      }
+
+      .series__item-title {
+        font-family: Spektra;
+        font-size: 38px;
+        line-height: 100%;
+        text-transform: uppercase;
+      }
+
+      .series__item-description {
+        max-width: 200px;
+      }
+
+      .full-screen-button {
+        width: 24px;
+        height: 24px;
+        background-image: url(https://avatars.mds.yandex.net/get-lpc/10116223/5772151c-9646-467a-a46c-fcad8825bc22/orig);
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .full-screen-button--opened {
+        background-image: url(https://avatars.mds.yandex.net/get-lpc/10116223/5b0717f6-afc7-45c1-bbbd-e26c1751d887/orig);
+      }
+
+      .bottom-section {
+        padding: 16px 0;
+      }
+
+      .bottom-section--full {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .shade {
+        display: none;
+      }
+
+      .share {
+        position: relative;
+        display: flex;
+        justify-content: center;
+      }
+
+      .share__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        max-width: 144px;
+        width: 100%;
+        height: 38px;
+        font-size: 16px;
+        line-height: 100%;
+        border: 1px solid #ffffff;
+        border-radius: 12px;
+        transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out,
+          border-color 0.1s ease-in-out;
+      }
+
+      .share__button path {
+        transition: fill 0.1s ease-in-out;
+      }
+
+      .share__button--active {
+        color: #212121;
+        background-color: #ffe800;
+        border-color: #ffe800;
+      }
+
+      .share__button--active path {
+        fill: #212121;
+      }
+
+      .share__content {
+        position: absolute;
+        display: none;
+        z-index: 1;
+        padding: 24px;
+        max-width: 330px;
+        width: 100%;
+        bottom: 46px;
+        background-color: #1e1e1e;
+        border: 1px solid #4c4c4c;
+        border-radius: 16px;
+      }
+
+      .share__content--active {
+        display: block;
+      }
+
+      .share__close {
+        display: none;
+      }
+
+      .share__title {
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      .share__links {
+        display: flex;
+        margin-bottom: 18px;
+        gap: 6px;
+      }
+
+      .share__link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 38px;
+        flex-grow: 1;
+        border-radius: 6px;
+      }
+
+      .share__link--tg {
+        background: #72a6e6;
+      }
+
+      .share__link--vk {
+        background: #2899f4;
+      }
+
+      .share__link--ok {
+        background: #f39843;
+      }
+
+      .share__info {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 12px;
+        line-height: 100%;
+        opacity: 0.4;
+      }
+
+      .share__form,
+      .share__pop-up-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 8px 0 13px;
+        border-radius: 6px;
+        height: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: #2e2e2e;
+      }
+
+      .share__form-button {
+        width: 16px;
+        height: 16px;
+      }
+
+      .share__input {
+        max-width: 232px;
+        width: 100%;
+        font-size: 10px;
+        color: #ffffff;
+        text-overflow: ellipsis;
+        background-color: transparent;
+        border: none;
+      }
+
+      .share__pop-up {
+        position: absolute;
+        width: 100%;
+        padding: 0 24px;
+        left: 0;
+        bottom: 24px;
+        font-size: 10px;
+        line-height: 100%;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      .share__pop-up--active {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .video-footer {
+        padding: 48px 0 32px;
+      }
+
+      .video-footer--full {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .video-footer__wrapper,
+      .video-footer__right,
+      .video-footer__links {
+        display: flex;
+        align-items: center;
+      }
+
+      .video-footer__wrapper {
+        justify-content: space-between;
+      }
+
+      .video-footer__copywrite {
+        font-family: Helvetica;
+        font-size: 14px;
+        color: #f5f4f2;
+      }
+
+      .video-footer__right {
+        gap: 24px;
+      }
+
+      .video-footer__links {
+        gap: 8px;
+      }
+
+      @media (max-width: 960px) {
         .video-header {
-            padding: 36px 0;
+          position: relative;
+          margin-bottom: 10px;
+          padding: 16px 0;
+          z-index: 1;
         }
 
-        .video-header--full {
-            visibility: hidden;
-            opacity: 0;
-        }
-
-        .video-header__wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .video-header__link {
+          font-size: 14px;
         }
 
         .video-header__link-image {
-            max-width: 323px;
+          max-width: 192px;
         }
 
         .video-header__link-arrow {
-            margin-right: 8px;
+          margin-right: 6px;
         }
 
         .video-section__container {
-            position: relative;
-        }
-
-        .video-section__container--full {
-            position: fixed;
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            z-index: 10;
+          z-index: 1;
         }
 
         .video-section__wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            flex-grow: 1;
+          margin-bottom: 59px;
         }
 
-        .video-section__list {
-            width: 100%;
+        .video-section__wrapper--full {
+          margin: 0;
+        }
+
+        .video-section__top {
+          margin-bottom: 16px;
+          padding: 0;
+        }
+
+        .video-section__top-link {
+          font-size: 14px;
+          gap: 6px;
         }
 
         .video-section__item {
-            display: none;
-            width: 100%;
-            height: 500px;
-            border-radius: 32px;
-            -o-object-fit: cover;
-            object-fit: cover;
-        }
-
-        .video-section__item--active {
-            display: flex;
+          height: 220px;
+          border-radius: 16px;
         }
 
         .video-section__item--full {
-            height: auto;
-            border-radius: 0;
-            -o-object-fit: unset;
-            object-fit: unset;
+          height: 100%;
+          border-radius: 0;
+          -o-object-fit: unset;
+          object-fit: unset;
         }
 
         .video-section__content {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-            border-radius: 32px;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transition: visibility 0.4s ease-in-out, opacity 0.4s ease-in-out;
-        }
-
-        .video-section__content--hidden {
-            visibility: hidden;
-            opacity: 0;
+          border-radius: 16px;
         }
 
         .video-section__content--full {
-            border-radius: unset;
+          border-radius: 0;
         }
 
         .video-section__content-top {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding-top: 32px;
+          padding-top: 8px;
+        }
+
+        .video-section__content-top--full {
+          padding-top: 20px;
         }
 
         .video-section__content-top img {
-            margin-bottom: 10px;
-            width: 153px;
-            height: 102px;
+          margin-bottom: 2px;
+          width: 57px;
+          height: 40px;
         }
 
         .video-section__label {
-            display: none;
-        }
-
-        .video-section__label--active {
-            display: block;
+          font-size: 12px;
+          line-height: 100%;
+          font-weight: 700;
         }
 
         .video-section__bottom {
-            padding: 0 24px 16px 24px;
-            z-index: 1;
+          padding: 0 8px 8px;
         }
 
-        .video-section__controls,
-        .video-section__controls-left,
-        .video-section__controls-wrapper,
-        .video-section__controls-right {
-            display: flex;
-            align-items: center;
+        .video-section__bottom--full {
+          padding: 12px 8px 20px 8px;
         }
 
         .video-section__controls {
-            padding-top: 8px;
-            gap: 32px;
-        }
-
-        .video-section__controls-left {
-            margin-right: auto;
-            gap: 24px;
-        }
-
-        .video-section__controls-wrapper {
-            gap: 10px;
-        }
-
-        .video-section__controls-wrapper--pt {
-            padding-top: 6px;
+          padding-top: 5px;
         }
 
         .full-screen-close {
-            position: absolute;
-            display: none;
-            top: 32px;
-            right: 32px;
+          top: 24px;
+          right: 24px;
         }
 
-        .full-screen-close--full {
-            display: block;
-            z-index: 1;
-        }
-
-        .play-button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-repeat: no-repeat;
-            background-position: center;
+        .full-screen-close img {
+          width: 24px;
+          height: 24px;
         }
 
         .play-button__image {
-            position: absolute;
-            -o-object-fit: cover;
-            object-fit: cover;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
-        }
-
-        .play-button__image--active {
-            visibility: visible;
-            opacity: 1;
+          width: 34px;
+          height: 34px;
         }
 
         .progress {
-            position: relative;
-            margin-bottom: 12px;
-            width: 100%;
-            transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
-
-        .progress--hidden {
-            visibility: hidden;
-            opacity: 0;
-        }
-
-        .progress__time {
-            position: absolute;
-            padding: 4px 8px;
-            border-radius: 4px;
-            display: none;
-            top: -30px;
-            transform: translateX(-50%);
-        }
-
-        .progress__time--active {
-            display: flex;
+          margin-bottom: 8px;
         }
 
         .progress__bar {
-            position: relative;
-            background-color: #ffffff;
-            height: 4px;
-            border-radius: 100px;
-            cursor: pointer;
-        }
-
-        .progress__fill {
-            height: 100%;
-            width: 0;
-            background-color: #ffe800;
-            border-radius: 100px;
-            transition: width 0.2s ease;
+          height: 2px;
         }
 
         .progress__indicator {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background-color: #ffe800;
-            border-radius: 50%;
-            top: -4px;
-            transition: left 0.2s ease;
+          width: 8px;
+          height: 8px;
+          top: -3px;
         }
 
         .bottom-play-button {
-            position: relative;
-            top: -1px;
-            width: 22px;
-            height: 22px;
-            margin-right: 6px;
-            background-image: url(https://avatars.mds.yandex.net/get-lpc/12373972/ed472ce3-d8bc-4591-908e-07940d2f07fd/orig);
-            background-repeat: no-repeat;
-            background-size: contain;
-            transition: background-image 0.2s ease-in-out;
+          width: 14px;
+          height: 14px;
         }
 
-        .bottom-play-button--paused {
-            background-image: url(https://avatars.mds.yandex.net/get-lpc/10116223/6d5891fd-cf8a-400a-9b8d-91d5b1d29f93/orig);
+        .next-button img {
+          width: 17px;
+          height: 17px;
         }
 
-        .volume-control {
-            position: relative;
+        .back-button img,
+        .forward-button img {
+          width: 22px;
+          height: 19px;
         }
 
         .volume-button {
-            width: 28px;
-            height: 28px;
-            background-image: url(https://avatars.mds.yandex.net/get-lpc/12373972/808e3ddf-740a-47f8-8581-76ae6f317c15/orig);
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        .volume-button--muted {
-            background-image: url(https://avatars.mds.yandex.net/get-lpc/10116223/0b708279-4208-486d-b9d9-ca424ef47503/orig);
-        }
-
-        .volume-bar {
-            position: absolute;
-            left: 10px;
-            width: 3px;
-            height: 75px;
-            bottom: 33px;
-            background-color: #9a8e11;
-            border-radius: 3px;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            cursor: pointer;
-        }
-
-        .volume-bar::after {
-            position: absolute;
-            content: "";
-            width: 28px;
-            height: 85px;
-            top: -5px;
-            left: -12px;
-        }
-
-        .volume-fill {
-            width: 100%;
-            background-color: #ffffff;
-            border-radius: 3px;
-        }
-
-        .volume-indicator {
-            width: 12px;
-            height: 12px;
-            background-color: #e9d404;
-            border-radius: 50%;
-            position: absolute;
-            left: -4.5px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .volume-control:hover .volume-bar,
-        .volume-bar:hover .volume-bar {
-            visibility: visible;
-            opacity: 1;
+          width: 16px;
+          height: 16px;
+          background-size: contain;
         }
 
         .series {
-            position: absolute;
-            display: flex;
-            z-index: 1;
-            right: 69px;
-            bottom: 12px;
+          position: static;
+        }
+
+        .series--full {
+          position: absolute;
+          right: 47px;
         }
 
         .series__button {
-            display: flex;
-            align-items: center;
-            padding: 11px 15px;
-            gap: 6px;
-            font-size: 16px;
-            color: #212121;
-            background-color: #ffffff;
-            border-radius: 12px;
-            transition: background-color 0.3s ease-in-out, visibility 0.4s ease-in-out, opacity 0.4s ease-in-out;
+          display: none;
+          padding: 11px 15px;
+          gap: 6px;
+          font-size: 13px !important;
+          border-radius: 10px;
         }
 
-        .series__button--active {
-            background-color: #ffe800;
-        }
-
-        .series__button--hidden {
-            visibility: hidden;
-            opacity: 0;
+        .series__button--full {
+          display: flex;
         }
 
         .series__wrapper {
-            position: absolute;
-            display: none;
-            flex-direction: column;
-            flex-shrink: 0;
-            bottom: 46px;
-            right: 0;
-            width: 500px;
-            max-height: 500px;
-            background-color: #212121;
-            border: 1px solid #4c4c4c;
-            border-radius: 20px;
+          position: static;
+          display: flex;
+          margin: 0;
+          padding: 0;
+          left: 0;
+          width: 100%;
+          max-height: 459px;
+          border: none;
+        }
+
+        .series__wrapper--full {
+          position: absolute;
+          display: none;
+          padding: 4px 20px 20px;
+          bottom: 42px;
+          left: unset;
+          width: 335px;
+          max-height: 350px;
+          border-radius: 10px;
         }
 
         .series__wrapper--active {
-            display: flex;
+          display: flex;
         }
 
         .series__close {
-            align-self: flex-end;
-            margin: 0 24px;
-            padding: 24px 0 20px;
-            width: -moz-fit-content;
-            width: fit-content;
+          display: none;
+        }
+
+        .series__close--full {
+          position: absolute;
+          display: block;
+          margin: 0;
+          padding: 0;
+          top: 17px;
+          right: 17px;
+          width: 8px;
+          height: 8px;
+          background-image: url(https://avatars.mds.yandex.net/get-lpc/12602567/41bfe472-dc9e-4c8a-b71f-caae7c705d19/orig);
+          background-size: cover;
+          background-repeat: no-repeat;
+          z-index: 1;
+        }
+
+        .series__close--full img {
+          display: none;
         }
 
         .series__border {
-            margin: 0 24px;
-            height: 1px;
-            background-color: #4c4c4c;
+          display: none;
         }
 
         .series__list {
-            padding-left: 24px;
-            padding-bottom: 24px;
-            overflow-y: auto;
+          margin: 0;
+          padding: 0;
         }
 
         .series__list::-webkit-scrollbar {
-            width: 2px;
-        }
-
-        .series__list::-webkit-scrollbar-thumb {
-            background-color: #eee;
-            border-radius: 2px;
-            cursor: pointer;
-        }
-
-        .series__list::-webkit-scrollbar-track {
-            margin-bottom: 25px;
-            background: transparent;
+          display: none;
         }
 
         .series__item {
-            position: relative;
-            display: flex;
-            justify-content: flex-start;
-            margin-right: 24px;
-            padding: 20px 0;
-            gap: 12px;
-            border-bottom: 1px solid #4c4c4c;
-            cursor: pointer;
-            transition: color 0.2s ease-in-out;
+          margin: 0;
+          padding: 16px 0;
         }
 
         .series__item::after {
-            position: absolute;
-            content: "";
-            width: 100%;
-            top: 10px;
-            bottom: 10px;
-            border-radius: 12px;
-            transition: background-color 0.2s ease-in-out;
+          border-radius: 10px;
         }
 
         .series__item:hover {
-            color: #222222;
+          color: #ffffff;
         }
 
         .series__item:hover::after {
-            background-color: #ffe800;
+          background-color: transparent;
         }
 
-        .series__item-image {
-            max-width: 140px;
-            width: 100%;
-            min-height: 90px;
-            background-color: #d9d9d9;
-            -o-object-fit: cover;
-            object-fit: cover;
-            border-radius: 10px;
-            z-index: 1;
+        .series__item:active {
+          color: #222222;
+        }
+
+        .series__item:active::after {
+          background-color: #ffe800;
         }
 
         .series__item-right {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1;
+          gap: 6px;
         }
 
         .series__item-title {
-            font-family: Spektra;
-            font-size: 38px;
-            line-height: 100%;
-            text-transform: uppercase;
+          font-size: 28px;
+          line-height: 100%;
         }
 
         .series__item-description {
-            max-width: 200px;
+          font-size: 14px;
         }
 
         .full-screen-button {
-            width: 24px;
-            height: 24px;
-            background-image: url(https://avatars.mds.yandex.net/get-lpc/10116223/5772151c-9646-467a-a46c-fcad8825bc22/orig);
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        .full-screen-button--opened {
-            background-image: url(https://avatars.mds.yandex.net/get-lpc/10116223/5b0717f6-afc7-45c1-bbbd-e26c1751d887/orig);
+          width: 16px;
+          height: 16px;
+          background-size: contain;
         }
 
         .bottom-section {
-            padding: 16px 0;
-        }
-
-        .bottom-section--full {
-            visibility: hidden;
-            opacity: 0;
+          padding: 0;
         }
 
         .shade {
-            display: none;
+          position: absolute;
+          content: "";
+          display: none;
+          width: 100vw;
+          height: 200vh;
+          top: 0;
+          left: 0;
+          background-color: #212121;
+          opacity: 0.85;
+          z-index: 2;
+        }
+
+        .shade--active {
+          display: block;
         }
 
         .share {
-            position: relative;
-            display: flex;
-            justify-content: center;
+          position: absolute;
+          justify-content: flex-end;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          padding: 0 10px;
+          margin: 0;
         }
 
         .share__button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            max-width: 144px;
-            width: 100%;
-            height: 38px;
-            font-size: 16px;
-            line-height: 100%;
-            border: 1px solid #ffffff;
-            border-radius: 12px;
-            transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-        }
-
-        .share__button path {
-            transition: fill 0.1s ease-in-out;
-        }
-
-        .share__button--active {
-            color: #212121;
-            background-color: #ffe800;
-            border-color: #ffe800;
-        }
-
-        .share__button--active path {
-            fill: #212121;
+          position: absolute;
+          padding: 0;
+          top: 300px;
+          width: 34px;
+          height: 34px;
+          border-radius: 8px;
+          z-index: 1;
         }
 
         .share__content {
-            position: absolute;
-            display: none;
-            z-index: 1;
-            padding: 24px;
-            max-width: 330px;
-            width: 100%;
-            bottom: 46px;
-            background-color: #1e1e1e;
-            border: 1px solid #4c4c4c;
-            border-radius: 16px;
+          position: absolute;
+          max-width: 335px;
+          height: -moz-fit-content;
+          height: fit-content;
+          top: 300px;
+          left: calc(50% - 345px / 2);
+          z-index: 2;
         }
 
-        .share__content--active {
-            display: block;
+        .share__content--mobile {
+          padding: 0;
+          border: none;
+          background-color: transparent;
         }
 
         .share__close {
-            display: none;
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 34px;
+          height: 34px;
+          top: 8px;
+          right: 8px;
         }
 
         .share__title {
-            margin-bottom: 20px;
-            font-weight: 500;
+          margin-bottom: 18px;
         }
 
         .share__links {
-            display: flex;
-            margin-bottom: 18px;
-            gap: 6px;
+          display: flex;
+          margin-bottom: 0;
+          padding-bottom: 14px;
         }
 
-        .share__link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 38px;
-            flex-grow: 1;
-            border-radius: 6px;
+        .share__links::after {
+          position: absolute;
+          content: "";
+          width: 100%;
+          height: 1px;
+          left: 0;
+          bottom: 74px;
+          background-color: #ffffff;
+          opacity: 0.08;
         }
 
-        .share__link--tg {
-            background: #72a6e6;
-        }
-
-        .share__link--vk {
-            background: #2899f4;
-        }
-
-        .share__link--ok {
-            background: #f39843;
+        .share__copy-box {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: flex-end;
+          align-items: center;
+          padding-top: 14px;
+          gap: 8px;
         }
 
         .share__info {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 12px;
-            line-height: 100%;
-            opacity: 0.4;
+          margin-bottom: 0;
+          font-size: 14px;
+          opacity: 1;
+          cursor: pointer;
         }
 
-        .share__form,
-        .share__pop-up-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 8px 0 13px;
-            border-radius: 6px;
-            height: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            background: #2e2e2e;
+        .share__form {
+          display: flex;
+          justify-content: center;
+          padding: 0;
+          width: 36px;
+          height: 36px;
+          border-radius: 100%;
+          border: none;
+          background-color: #ffe800;
         }
 
-        .share__form-button {
-            width: 16px;
-            height: 16px;
-        }
-
-        .share__input {
-            max-width: 232px;
-            width: 100%;
-            font-size: 10px;
-            color: #ffffff;
-            text-overflow: ellipsis;
-            background-color: transparent;
-            border: none;
+        .share__form-button path {
+          stroke: #212121;
+          stroke-opacity: 1;
         }
 
         .share__pop-up {
-            position: absolute;
-            width: 100%;
-            padding: 0 24px;
-            left: 0;
-            bottom: 24px;
-            font-size: 10px;
-            line-height: 100%;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
+          width: 100%;
+          padding: 0 10px;
+          bottom: -44px;
+          font-size: 14px;
+          color: #1e1e1e;
         }
 
-        .share__pop-up--active {
-            visibility: visible;
-            opacity: 1;
+        .share__pop-up-wrapper {
+          padding: 0 24px;
+          height: 54px;
+          background-color: #eee;
+          border: 1px solid #4c4c4c;
+          border-radius: 16px;
+        }
+
+        .share__content--mobile .share__close,
+        .share__content--mobile .share__title,
+        .share__content--mobile .share__links,
+        .share__content--mobile .share__info,
+        .share__content--mobile .share__form {
+          display: none;
         }
 
         .video-footer {
-            padding: 48px 0 32px;
-        }
-
-        .video-footer--full {
-            visibility: hidden;
-            opacity: 0;
-        }
-
-        .video-footer__wrapper,
-        .video-footer__right,
-        .video-footer__links {
-            display: flex;
-            align-items: center;
+          padding: 48px 0 20px;
         }
 
         .video-footer__wrapper {
-            justify-content: space-between;
-        }
-
-        .video-footer__copywrite {
-            font-family: Helvetica;
-            font-size: 14px;
-            color: #f5f4f2;
+          flex-direction: column-reverse;
+          justify-content: flex-start;
+          align-items: flex-start;
         }
 
         .video-footer__right {
-            gap: 24px;
+          justify-content: space-between;
+          margin-bottom: 18px;
+          width: 100%;
         }
 
-        .video-footer__links {
-            gap: 8px;
+        .video-footer__right {
+          gap: 10px;
         }
 
-        @media (max-width: 960px) {
-            .video-header {
-                position: relative;
-                margin-bottom: 10px;
-                padding: 16px 0;
-                z-index: 1;
-            }
-
-            .video-header__link {
-                font-size: 14px;
-            }
-
-            .video-header__link-image {
-                max-width: 192px;
-            }
-
-            .video-header__link-arrow {
-                margin-right: 6px;
-            }
-
-            .video-section__container {
-                z-index: 1;
-            }
-
-            .video-section__wrapper {
-                margin-bottom: 59px;
-            }
-
-            .video-section__wrapper--full {
-                margin: 0;
-            }
-
-            .video-section__top {
-                margin-bottom: 16px;
-                padding: 0;
-            }
-
-            .video-section__top-link {
-                font-size: 14px;
-                gap: 6px;
-            }
-
-            .video-section__item {
-                height: 220px;
-                border-radius: 16px;
-            }
-
-            .video-section__item--full {
-                height: 100%;
-                border-radius: 0;
-                -o-object-fit: unset;
-                object-fit: unset;
-            }
-
-            .video-section__content {
-                border-radius: 16px;
-            }
-
-            .video-section__content--full {
-                border-radius: 0;
-            }
-
-            .video-section__content-top {
-                padding-top: 8px;
-            }
-
-            .video-section__content-top--full {
-                padding-top: 20px;
-            }
-
-            .video-section__content-top img {
-                margin-bottom: 2px;
-                width: 57px;
-                height: 40px;
-            }
-
-            .video-section__label {
-                font-size: 12px;
-                line-height: 100%;
-                font-weight: 700;
-            }
-
-            .video-section__bottom {
-                padding: 0 8px 8px;
-            }
-
-            .video-section__bottom--full {
-                padding: 12px 8px 20px 8px;
-            }
-
-            .video-section__controls {
-                padding-top: 5px;
-            }
-
-            .full-screen-close {
-                top: 24px;
-                right: 24px;
-            }
-
-            .full-screen-close img {
-                width: 24px;
-                height: 24px;
-            }
-
-            .play-button__image {
-                width: 34px;
-                height: 34px;
-            }
-
-            .progress {
-                margin-bottom: 8px;
-            }
-
-            .progress__bar {
-                height: 2px;
-            }
-
-            .progress__indicator {
-                width: 8px;
-                height: 8px;
-                top: -3px;
-            }
-
-            .bottom-play-button {
-                width: 14px;
-                height: 14px;
-            }
-
-            .next-button img {
-                width: 17px;
-                height: 17px;
-            }
-
-            .back-button img,
-            .forward-button img {
-                width: 22px;
-                height: 19px;
-            }
-
-            .volume-button {
-                width: 16px;
-                height: 16px;
-                background-size: contain;
-            }
-
-            .series {
-                position: static;
-            }
-
-            .series--full {
-                position: absolute;
-                right: 47px;
-            }
-
-            .series__button {
-                display: none;
-                padding: 11px 15px;
-                gap: 6px;
-                font-size: 13px !important;
-                border-radius: 10px;
-            }
-
-            .series__button--full {
-                display: flex;
-            }
-
-            .series__wrapper {
-                position: static;
-                display: flex;
-                margin: 0;
-                padding: 0;
-                left: 0;
-                width: 100%;
-                max-height: 459px;
-                border: none;
-            }
-
-            .series__wrapper--full {
-                position: absolute;
-                display: none;
-                padding: 4px 20px 20px;
-                bottom: 42px;
-                left: unset;
-                width: 335px;
-                max-height: 350px;
-                border-radius: 10px;
-            }
-
-            .series__wrapper--active {
-                display: flex;
-            }
-
-            .series__close {
-                display: none;
-            }
-
-            .series__close--full {
-                position: absolute;
-                display: block;
-                margin: 0;
-                padding: 0;
-                top: 17px;
-                right: 17px;
-                width: 8px;
-                height: 8px;
-                background-image: url(https://avatars.mds.yandex.net/get-lpc/12602567/41bfe472-dc9e-4c8a-b71f-caae7c705d19/orig);
-                background-size: cover;
-                background-repeat: no-repeat;
-                z-index: 1;
-            }
-
-            .series__close--full img {
-                display: none;
-            }
-
-            .series__border {
-                display: none;
-            }
-
-            .series__list {
-                margin: 0;
-                padding: 0;
-            }
-
-            .series__list::-webkit-scrollbar {
-                display: none;
-            }
-
-            .series__item {
-                margin: 0;
-                padding: 16px 0;
-            }
-
-            .series__item::after {
-                border-radius: 10px;
-            }
-
-            .series__item:hover {
-                color: #ffffff;
-            }
-
-            .series__item:hover::after {
-                background-color: transparent;
-            }
-
-            .series__item:active {
-                color: #222222;
-            }
-
-            .series__item:active::after {
-                background-color: #ffe800;
-            }
-
-            .series__item-right {
-                gap: 6px;
-            }
-
-            .series__item-title {
-                font-size: 28px;
-                line-height: 100%;
-            }
-
-            .series__item-description {
-                font-size: 14px;
-            }
-
-            .full-screen-button {
-                width: 16px;
-                height: 16px;
-                background-size: contain;
-            }
-
-            .bottom-section {
-                padding: 0;
-            }
-
-            .shade {
-                position: absolute;
-                content: "";
-                display: none;
-                width: 100vw;
-                height: 200vh;
-                top: 0;
-                left: 0;
-                background-color: #212121;
-                opacity: 0.85;
-                z-index: 2;
-            }
-
-            .shade--active {
-                display: block;
-            }
-
-            .share {
-                position: absolute;
-                justify-content: flex-end;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                padding: 0 10px;
-                margin: 0;
-            }
-
-            .share__button {
-                position: absolute;
-                padding: 0;
-                top: 300px;
-                width: 34px;
-                height: 34px;
-                border-radius: 8px;
-                z-index: 1;
-            }
-
-            .share__content {
-                position: absolute;
-                max-width: 335px;
-                height: -moz-fit-content;
-                height: fit-content;
-                top: 300px;
-                left: calc(50% - 345px / 2);
-                z-index: 2;
-            }
-
-            .share__content--mobile {
-                padding: 0;
-                border: none;
-                background-color: transparent;
-            }
-
-            .share__close {
-                position: absolute;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 34px;
-                height: 34px;
-                top: 8px;
-                right: 8px;
-            }
-
-            .share__title {
-                margin-bottom: 18px;
-            }
-
-            .share__links {
-                display: flex;
-                margin-bottom: 0;
-                padding-bottom: 14px;
-            }
-
-            .share__links::after {
-                position: absolute;
-                content: "";
-                width: 100%;
-                height: 1px;
-                left: 0;
-                bottom: 74px;
-                background-color: #ffffff;
-                opacity: 0.08;
-            }
-
-            .share__copy-box {
-                display: flex;
-                flex-direction: row-reverse;
-                justify-content: flex-end;
-                align-items: center;
-                padding-top: 14px;
-                gap: 8px;
-            }
-
-            .share__info {
-                margin-bottom: 0;
-                font-size: 14px;
-                opacity: 1;
-                cursor: pointer;
-            }
-
-            .share__form {
-                display: flex;
-                justify-content: center;
-                padding: 0;
-                width: 36px;
-                height: 36px;
-                border-radius: 100%;
-                border: none;
-                background-color: #ffe800;
-            }
-
-            .share__form-button path {
-                stroke: #212121;
-                stroke-opacity: 1;
-            }
-
-            .share__pop-up {
-                width: 100%;
-                padding: 0 10px;
-                bottom: -44px;
-                font-size: 14px;
-                color: #1e1e1e;
-            }
-
-            .share__pop-up-wrapper {
-                padding: 0 24px;
-                height: 54px;
-                background-color: #eee;
-                border: 1px solid #4c4c4c;
-                border-radius: 16px;
-            }
-
-            .share__content--mobile .share__close,
-            .share__content--mobile .share__title,
-            .share__content--mobile .share__links,
-            .share__content--mobile .share__info,
-            .share__content--mobile .share__form {
-                display: none;
-            }
-
-            .video-footer {
-                padding: 48px 0 20px;
-            }
-
-            .video-footer__wrapper {
-                flex-direction: column-reverse;
-                justify-content: flex-start;
-                align-items: flex-start;
-            }
-
-            .video-footer__right {
-                justify-content: space-between;
-                margin-bottom: 18px;
-                width: 100%;
-            }
-
-            .video-footer__right {
-                gap: 10px;
-            }
-
-            .mobile-display-none {
-                display: none;
-            }
-
-            .stop-scroll {
-                overflow: hidden;
-            }
+        .mobile-display-none {
+          display: none;
         }
 
-        @media (max-width: 599px) {
-            .video-section__container--full {
-                height: calc(100vh - 110px);
-            }
+        .stop-scroll {
+          overflow: hidden;
+        }
+      }
 
-            .series__wrapper--full {
-                position: fixed;
-                display: none;
-                padding: 16px 18px 18px;
-                right: unset;
-                bottom: 162px;
-                left: calc(50% - 335px / 2);
-                max-height: 70vh;
-                border: 1px solid #4c4c4c;
-            }
-
-            .series__wrapper--active {
-                display: flex;
-            }
-
-            .share__content {
-                max-width: calc(100vw - 20px);
-                right: 10px;
-                left: 10px;
-            }
+      @media (max-width: 599px) {
+        .video-section__container--full {
+          height: calc(100vh - 110px);
         }
 
-        @media (max-width: 355px) {
-            .video-section__controls-left {
-                gap: 12px;
-            }
-
-            .bottom-play-button {
-                margin: 0;
-            }
-
-            .series__wrapper--full {
-                width: 300px;
-                left: calc(50% - 300px / 2);
-            }
+        .series__wrapper--full {
+          position: fixed;
+          display: none;
+          padding: 16px 18px 18px;
+          right: unset;
+          bottom: 162px;
+          left: calc(50% - 335px / 2);
+          max-height: 70vh;
+          border: 1px solid #4c4c4c;
         }
+
+        .series__wrapper--active {
+          display: flex;
+        }
+
+        .share__content {
+          max-width: calc(100vw - 20px);
+          right: 10px;
+          left: 10px;
+        }
+      }
+
+      @media (max-width: 355px) {
+        .video-section__controls-left {
+          gap: 12px;
+        }
+
+        .bottom-play-button {
+          margin: 0;
+        }
+
+        .series__wrapper--full {
+          width: 300px;
+          left: calc(50% - 300px / 2);
+        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="video-header">
-        <div class="container">
-            <div class="video-header__wrapper">
-                <a href="https://travel.yandex.ru" class="video-header__link"><img class="video-header__link-image" src="https://avatars.mds.yandex.net/get-lpc/10116223/31c858cf-0996-4d17-9922-3dae51c3f281/orig" alt="Logo" /></a>
-                <a href="https://travel.yandex.ru/promo/doedesh_napishi/" class="video-header__link"><img class="video-header__link-arrow" src="https://avatars.mds.yandex.net/get-lpc/10116223/7bd211a4-b67a-478e-9ee5-ef24ef2e0511/orig" alt="←" /><span>На&nbsp;главную</span></a>
-            </div>
+      <div class="container">
+        <div class="video-header__wrapper">
+          <a href="https://travel.yandex.ru" class="video-header__link"
+            ><img
+              class="video-header__link-image"
+              src="https://avatars.mds.yandex.net/get-lpc/10116223/31c858cf-0996-4d17-9922-3dae51c3f281/orig"
+              alt="Logo"
+          /></a>
+          <a
+            href="https://travel.yandex.ru/promo/doedesh_napishi/"
+            class="video-header__link"
+            ><img
+              class="video-header__link-arrow"
+              src="https://avatars.mds.yandex.net/get-lpc/10116223/7bd211a4-b67a-478e-9ee5-ef24ef2e0511/orig"
+              alt="←"
+            /><span>На&nbsp;главную</span></a
+          >
         </div>
+      </div>
     </div>
 
     <div class="video-section">
-        <div class="container">
-            <div class="video-section__container">
-                <div class="video-section__wrapper">
-                    <div id="videoContainer" class="video-section__list">
-                        <video id="video-1" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/Ya_Kaliningad_sb%2003%20master%2002_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/12602567/9962b200-d752-4cff-9f9b-ae14a9180c20/orig" playsinline></video>
-                        <video id="video-2" class="video-section__item" src=" https://lpc-ext.s3.yandex.net/landings_travel/Final ДН Питер_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/12602567/92deccdf-c2a6-4636-8a01-c28310f266b5/orig" playsinline></video>
-                        <video id="video-3" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/FINAL%20DN%20SOCHI_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/10116223/e495305b-8f90-4779-83ad-fbb6884c2bc0/orig" playsinline></video>
-                        <video id="video-4" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/DN_Moscow_s2e4_FINAL_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/10116223/47eff090-62ac-45b0-a691-3edd343130ec/orig" playsinline></video>
-                        <video id="video-5" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/DN_Moscow_s2e4_FINAL_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/12373972/70243f13-8bef-400d-a1f6-11c466c3bff4/orig" playsinline></video>
-                        <video id="video-6" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/DN_Moscow_s2e4_FINAL_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/12373972/4b716c20-e639-4dd2-97c4-90165550ece6/orig" playsinline></video>
-                        <video id="video-7" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/DN_Moscow_s2e4_FINAL_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/10116223/e5b180c5-3602-4ef4-b779-27bb421de457/orig" playsinline></video>
-                        <video id="video-8" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/DN_Moscow_s2e4_FINAL_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/1635340/2b087e0a-8a3d-4efd-b565-7bbf79c09b2a/orig" playsinline></video>
-                        <video id="video-9" class="video-section__item" src="https://lpc-ext.s3.yandex.net/landings_travel/DN_Moscow_s2e4_FINAL_1.mp4" poster="https://avatars.mds.yandex.net/get-lpc/12602567/4a547b84-3d6f-4607-ab48-1e22b2f30696/orig" playsinline></video>
-                    </div>
-                    <div class="video-section__content">
-                        <button class="full-screen-close">
-                            <img src="https://avatars.mds.yandex.net/get-lpc/12602567/8882ae5f-652a-457a-b3e5-e1596fc7a34a/orig" alt="x" />
-                        </button>
-                        <div class="video-section__content-top">
-                            <img src="https://avatars.mds.yandex.net/get-lpc/12602567/195f4a7f-a379-43e3-aa12-30627921dbaf/orig" alt="Logo" />
-                            <div class="video-section__content-list">
-                                <span class="video-section__label" id="description-1" data-video-id="video-1">Калининград</span>
-                                <span class="video-section__label" id="description-2" data-video-id="video-2">Санкт-Петербург</span>
-                                <span class="video-section__label" id="description-3" data-video-id="video-3">Сочи</span>
-                                <span class="video-section__label" id="description-4" data-video-id="video-4">Москва</span>
-                                <span class="video-section__label" id="description-5" data-video-id="video-5">Стамбул</span>
-                                <span class="video-section__label" id="description-6" data-video-id="video-6">Алтай</span>
-                                <span class="video-section__label" id="description-7" data-video-id="video-7">Шерегеш</span>
-                                <span class="video-section__label" id="description-8" data-video-id="video-8">Волгоград</span>
-                                <span class="video-section__label" id="description-9" data-video-id="video-9">Казань</span>
-                            </div>
-                        </div>
-
-                        <button id="playButton" class="play-button">
-                            <img class="play-button__image play-button__image--active" src="https://avatars.mds.yandex.net/get-lpc/12602567/6ba341f8-528f-4d78-9508-a1876adf277a/orig" alt="Play" />
-                            <img class="play-button__image" src="https://avatars.mds.yandex.net/get-lpc/10116223/7a292285-5781-4794-a473-cc1cdf99624f/orig" alt="Pause" />
-                        </button>
-
-                        <div class="video-section__bottom">
-                            <div class="progress">
-                                <div id="hoverTime" class="progress__time">
-                                    <span class="progress__time-text" id="hoverTimeText"></span>
-                                </div>
-                                <div class="progress__bar">
-                                    <div class="progress__fill" id="progressFill"></div>
-                                    <div class="progress__indicator" id="progressIndicator"></div>
-                                </div>
-                            </div>
-
-                            <div class="video-section__controls">
-                                <div class="video-section__controls-left">
-                                    <div class="video-section__controls-wrapper">
-                                        <button class="bottom-play-button"></button>
-                                        <button id="next" class="next-button">
-                                            <img src="https://avatars.mds.yandex.net/get-lpc/10116223/5b3d4f7b-f87e-4327-8306-9b0288eef094/orig" alt="Next" />
-                                        </button>
-                                    </div>
-                                    <div class="video-section__controls-wrapper video-section__controls-wrapper--pt">
-                                        <button id="backButton" class="back-button">
-                                            <img src="https://avatars.mds.yandex.net/get-lpc/10116223/1d13f391-88d1-4a78-a209-57af5bc6ab76/orig" alt="Back 10 seconds" />
-                                        </button>
-                                        <button id="forwardButton" class="forward-button">
-                                            <img src="https://avatars.mds.yandex.net/get-lpc/12373972/449de4f8-4d52-4e43-8431-224854845438/orig" alt="Next 10 seconds" />
-                                        </button>
-                                    </div>
-
-                                    <div class="volume-control">
-                                        <button class="volume-button"></button>
-                                        <div class="volume-bar">
-                                            <div class="volume-fill"></div>
-                                            <div class="volume-indicator"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button id="fullScreen" class="full-screen-button"></button>
-                            </div>
-                        </div>
-                    </div>
+      <div class="container">
+        <div class="video-section__container">
+          <div class="video-section__wrapper">
+            <div id="videoContainer" class="video-section__list">
+                <video
+                  id="video-1"
+                  class="video-section__item"
+                  width="100%"
+                  height="auto"
+                >
+                  <source
+                    src="https://lpc-ext.s3.yandex.net/landings_travel/Ya_Kaliningad_sb%2003%20master%2002_1.mp4"
+                  />
+                </video>
+                <!-- <iframe
+                  id="video-1"
+                  src="https://lpc-ext.s3.yandex.net/landings_travel/Ya_Kaliningad_sb%2003%20master%2002_1.mp4"
+                  class="video-section__item lc-iframe__iframe"
+                  allowfullscreen=""
+                  referrerpolicy="origin"
+                  sandbox="allow-forms allow-scripts allow-top-navigation allow-same-origin allow-presentation"
+                  aria-hidden="true"
+                  
+                >
+                </iframe> -->
+              </div>
+            <div class="video-section__content">
+              <button class="full-screen-close">
+                <img
+                  src="https://avatars.mds.yandex.net/get-lpc/12602567/8882ae5f-652a-457a-b3e5-e1596fc7a34a/orig"
+                  alt="x"
+                />
+              </button>
+              <div class="video-section__content-top">
+                <img
+                  src="https://avatars.mds.yandex.net/get-lpc/12602567/195f4a7f-a379-43e3-aa12-30627921dbaf/orig"
+                  alt="Logo"
+                />
+                <div class="video-section__content-list">
+                  <span
+                    class="video-section__label"
+                    id="description-1"
+                    data-video-id="video-1"
+                    >Калининград</span
+                  >
                 </div>
-                <div class="series">
-                    <button class="series__button" id="seriesDropdownButton">
-                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="5" cy="5" r="5" fill="#212121" />
-                        </svg>
-                        <span>Все серии</span>
-                    </button>
-                    <div class="series__wrapper" id="seriesDropdown">
-                        <button class="series__close">
-                            <img src="https://avatars.mds.yandex.net/get-lpc/10116223/4746d472-8e7c-4d72-be4a-73e41526cbf2/orig" alt="x" />
-                        </button>
-                        <div class="series__border"></div>
-                        <div class="series__list">
-                            <div class="series__item" data-video-id="video-1">
-                                <img class="series__item-image" src="https://avatars.mds.yandex.net/get-lpc/10116223/c30b8d56-9e45-48d4-bfb0-e05821472864/orig" alt="Изображение серии" />
-                                <div class="series__item-right">
-                                    <p class="series__item-title">Калининград</p>
-                                    <span class="series__item-description">Калининград. История, архитектура и&nbsp;культура</span>
-                                </div>
-                            </div>
-                            <div class="series__item" data-video-id="video-2">
-                                <img class="series__item-image" src="https://avatars.mds.yandex.net/get-lpc/12602567/ad586dfb-5f8e-4173-b671-ce1bd66176f9/orig" alt="Изображение серии" />
-                                <div class="series__item-right">
-                                    <p class="series__item-title">Санкт-Петербург</p>
-                                    <span class="series__item-description">Санкт-Петербург. История, архитектура и&nbsp;культура</span>
-                                </div>
-                            </div>
-                            <div class="series__item" data-video-id="video-3">
-                                <img class="series__item-image" src="https://avatars.mds.yandex.net/get-lpc/12373972/82989905-8445-465e-aaae-8143735c7965/orig" alt="Изображение серии" />
-                                <div class="series__item-right">
-                                    <p class="series__item-title">Сочи</p>
-                                    <span class="series__item-description">Сочи. История, архитектура и&nbsp;культура</span>
-                                </div>
-                            </div>
-                            <div class="series__item" data-video-id="video-4">
-                                <img class="series__item-image" src="https://avatars.mds.yandex.net/get-lpc/10116223/ec5e79ac-16eb-49b4-871e-016cd41846a9/orig" alt="Изображение серии" />
-                                <div class="series__item-right">
-                                    <p class="series__item-title">Москва</p>
-                                    <span class="series__item-description">Москва. История, архитектура и&nbsp;культура</span>
-                                </div>
-                            </div>
-                            <div class="series__item" data-video-id="video-5">
-                                <img class="series__item-image" src="https://avatars.mds.yandex.net/get-lpc/12602567/076aeb18-9744-4934-91b0-4486247fb6b3/orig" alt="Изображение серии" />
-                                <div class="series__item-right">
-                                    <p class="series__item-title">Стамбул</p>
-                                    <span class="series__item-description">Стамбул. История, архитектура и&nbsp;культура</span>
-                                </div>
-                            </div>
-                            <div class="series__item" data-video-id="video-6">
-                                <img class="series__item-image" src="https://avatars.mds.yandex.net/get-lpc/1635340/cbbc25ca-8ec1-4895-ac6f-b3e87c824f16/orig" alt="Изображение серии" />
-                                <div class="series__item-right">
-                                    <p class="series__item-title">Алтай</p>
-                                    <span class="series__item-description">Алтай. История, архитектура и&nbsp;культура</span>
-                                </div>
-                            </div>
-                            <div class="series__item" data-video-id="video-7">
-                                <img class="series__item-image" src="https://avatars.mds.yandex.net/get-lpc/12373972/38504abf-4861-4d1e-a412-f2ffe1c0bc03/orig" alt="Изображение серии" />
-                                <div class="series__item-right">
-                                    <p class="series__item-title">Шерегеш</p>
-                                    <span class="series__item-description">Шерегеш. История, архитектура и&nbsp;культура</span>
-                                </div>
-                            </div>
-                            <div class="series__item" data-video-id="video-8">
-                                <img class="series__item-image" src="https://avatars.mds.yandex.net/get-lpc/12373972/64b77d9f-97b7-4e49-95dc-ea1969329296/orig" alt="Изображение серии" />
-                                <div class="series__item-right">
-                                    <p class="series__item-title">Волгоград</p>
-                                    <span class="series__item-description">Волгоград. История, архитектура и&nbsp;культура</span>
-                                </div>
-                            </div>
-                            <div class="series__item" data-video-id="video-9">
-                                <img class="series__item-image" src="https://avatars.mds.yandex.net/get-lpc/1635340/455d09a4-8093-4a4d-aab2-bc848fb31592/orig" alt="Изображение серии" />
-                                <div class="series__item-right">
-                                    <p class="series__item-title">Казань</p>
-                                    <span class="series__item-description">Казань. История, архитектура и&nbsp;культура</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+
+              <button id="playButton" class="play-button">
+                <img
+                  class="play-button__image play-button__image--active"
+                  src="https://avatars.mds.yandex.net/get-lpc/12602567/6ba341f8-528f-4d78-9508-a1876adf277a/orig"
+                  alt="Play"
+                />
+                <img
+                  class="play-button__image"
+                  src="https://avatars.mds.yandex.net/get-lpc/10116223/7a292285-5781-4794-a473-cc1cdf99624f/orig"
+                  alt="Pause"
+                />
+              </button>
+
+              <div class="video-section__bottom">
+                <div class="progress">
+                  <div id="hoverTime" class="progress__time">
+                    <span class="progress__time-text" id="hoverTimeText"></span>
+                  </div>
+                  <div class="progress__bar">
+                    <div class="progress__fill" id="progressFill"></div>
+                    <div
+                      class="progress__indicator"
+                      id="progressIndicator"
+                    ></div>
+                  </div>
                 </div>
+
+                <div class="video-section__controls">
+                  <div class="video-section__controls-left">
+                    <div class="video-section__controls-wrapper">
+                      <button class="bottom-play-button"></button>
+                      <button id="next" class="next-button">
+                        <img
+                          src="https://avatars.mds.yandex.net/get-lpc/10116223/5b3d4f7b-f87e-4327-8306-9b0288eef094/orig"
+                          alt="Next"
+                        />
+                      </button>
+                    </div>
+                    <div
+                      class="video-section__controls-wrapper video-section__controls-wrapper--pt"
+                    >
+                      <button id="backButton" class="back-button">
+                        <img
+                          src="https://avatars.mds.yandex.net/get-lpc/10116223/1d13f391-88d1-4a78-a209-57af5bc6ab76/orig"
+                          alt="Back 10 seconds"
+                        />
+                      </button>
+                      <button id="forwardButton" class="forward-button">
+                        <img
+                          src="https://avatars.mds.yandex.net/get-lpc/12373972/449de4f8-4d52-4e43-8431-224854845438/orig"
+                          alt="Next 10 seconds"
+                        />
+                      </button>
+                    </div>
+
+                    <div class="volume-control">
+                      <button class="volume-button"></button>
+                      <div class="volume-bar">
+                        <div class="volume-fill"></div>
+                        <div class="volume-indicator"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button id="fullScreen" class="full-screen-button"></button>
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="series">
+            <button class="series__button" id="seriesDropdownButton">
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="5" cy="5" r="5" fill="#212121" />
+              </svg>
+              <span>Все серии</span>
+            </button>
+            <div class="series__wrapper" id="seriesDropdown">
+              <button class="series__close">
+                <img
+                  src="https://avatars.mds.yandex.net/get-lpc/10116223/4746d472-8e7c-4d72-be4a-73e41526cbf2/orig"
+                  alt="x"
+                />
+              </button>
+              <div class="series__border"></div>
+              <div class="series__list">
+                <div class="series__item" data-video-id="video-1">
+                  <img
+                    class="series__item-image"
+                    src="https://avatars.mds.yandex.net/get-lpc/10116223/c30b8d56-9e45-48d4-bfb0-e05821472864/orig"
+                    alt="Изображение серии"
+                  />
+                  <div class="series__item-right">
+                    <p class="series__item-title">Калининград</p>
+                    <span class="series__item-description"
+                      >Калининград. История, архитектура и&nbsp;культура</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-
     <div class="bottom-section">
-        <div class="shade"></div>
-        <div class="container">
-            <div class="share">
-                <button class="share__button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14" fill="none">
-                        <path d="M8.74954 13.9924C9.11316 13.9924 9.41004 13.8398 9.76626 13.4965L15.6216 7.81254C15.9036 7.53786 16 7.24795 16 6.99619C16 6.73681 15.911 6.4545 15.6216 6.17221L9.76626 0.541689C9.37293 0.160218 9.12805 0 8.76436 0C8.24489 0 7.87385 0.419618 7.87385 0.930792V3.81472H7.65867C2.32282 3.81472 0 7.33187 0 12.97C0 13.6262 0.363637 13.9924 0.764378 13.9924C1.07607 13.9924 1.41744 13.9161 1.67718 13.4278C2.96846 10.933 4.78664 10.1853 7.65867 10.1853H7.87385V13.0997C7.87385 13.6109 8.24489 13.9924 8.74954 13.9924ZM9.17257 12.3521C9.11317 12.3521 9.06865 12.3062 9.06865 12.2376V9.285C9.06865 9.10955 8.99443 9.03325 8.82376 9.03325H7.82933C4.30427 9.03325 2.05566 10.2921 1.17996 12.2071C1.1577 12.2605 1.14286 12.2834 1.10575 12.2834C1.07607 12.2834 1.0538 12.2605 1.0538 12.1995C1.20223 8.59835 2.73099 4.96676 7.82933 4.96676H8.82376C8.99443 4.96676 9.06865 4.89047 9.06865 4.71499V1.6861C9.06865 1.62507 9.11317 1.57929 9.17998 1.57929C9.22449 1.57929 9.26901 1.60981 9.30612 1.64033L14.59 6.8512C14.6419 6.90465 14.6642 6.95042 14.6642 6.99619C14.6642 7.04196 14.6494 7.08011 14.59 7.14118L9.29871 12.2834C9.26161 12.3292 9.21709 12.3521 9.17257 12.3521Z" fill="white" />
-                    </svg>
-                    <span class="mobile-display-none">Поделиться</span>
-                </button>
-                <div class="share__content">
-                    <button class="share__close">
-                        <img src="https://avatars.mds.yandex.net/get-lpc/12602567/41bfe472-dc9e-4c8a-b71f-caae7c705d19/orig" alt="x" />
-                    </button>
-                    <p class="share__title">Поделиться</p>
-                    <div class="share__links">
-                        <a href="#" class="share__link share__link--tg"><img class="share__link-icon" src="https://avatars.mds.yandex.net/get-lpc/12373972/9007fd50-0d12-495f-b0bf-c7dcea0f436a/orig" alt="Telegram" /></a>
-                        <a href="#" class="share__link share__link--vk"><img class="share__link-icon" src="https://avatars.mds.yandex.net/get-lpc/12373972/113faa17-dcfb-45d5-846c-6843b992834d/orig" alt="VK" /></a>
-                        <a href="#" class="share__link share__link--ok"><img class="share__link-icon" src="https://avatars.mds.yandex.net/get-lpc/12373972/6ade43c7-71ba-4670-951c-33fe31ed9246/orig" alt="OK" /></a>
-                    </div>
-                    <div class="share__copy-box">
-                        <span class="share__info"> Скопировать ссылку </span>
-                        <form class="share__form">
-                            <input class="share__input mobile-display-none" type="text" value="" />
-                            <button class="share__form-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M11.25 7.09808C11.25 5.32365 11.25 4.43581 10.7617 3.8849C10.2739 3.33337 9.48778 3.33337 7.91667 3.33337H6.25C4.67889 3.33337 3.89278 3.33337 3.405 3.8849C2.91667 4.43581 2.91667 5.32365 2.91667 7.09808V10.2353C2.91667 12.0098 2.91667 12.8976 3.405 13.4485C3.89278 14 4.67889 14 6.25 14H7.91667C9.48778 14 10.2739 14 10.7617 13.4485C11.25 12.8976 11.25 12.0098 11.25 10.2353V7.09808Z" stroke="white" stroke-opacity="0.7" />
-                                    <path d="M11.4583 12C11.9004 12 12.3243 11.8017 12.6368 11.4487C12.9494 11.0957 13.125 10.6169 13.125 10.1177V6.35298C13.125 3.98686 13.125 2.80349 12.4739 2.06875C11.8228 1.334 10.7756 1.33337 8.68056 1.33337H6.45833C6.01631 1.33337 5.59238 1.53169 5.27982 1.8847C4.96726 2.23771 4.79167 2.7165 4.79167 3.21573" stroke="white" stroke-opacity="0.7" />
-                                </svg>
-                            </button>
-                        </form>
-                        <div class="share__pop-up">
-                            <div class="share__pop-up-wrapper">
-                                <div class="share__pop-up-info">
-                                    <span>Ссылка скопирована</span><span class="mobile-display-none">&puncsp;в&nbsp;буфер обмена</span>
-                                </div>
-                                <svg class="mobile-display-none" xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
-                                    <path d="M12.5 4.08337L6.25 9.91671L3.125 7.00004" stroke="#7DCB00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div class="shade"></div>
+      <div class="container">
+        <div class="share">
+          <button class="share__button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="14"
+              viewBox="0 0 16 14"
+              fill="none"
+            >
+              <path
+                d="M8.74954 13.9924C9.11316 13.9924 9.41004 13.8398 9.76626 13.4965L15.6216 7.81254C15.9036 7.53786 16 7.24795 16 6.99619C16 6.73681 15.911 6.4545 15.6216 6.17221L9.76626 0.541689C9.37293 0.160218 9.12805 0 8.76436 0C8.24489 0 7.87385 0.419618 7.87385 0.930792V3.81472H7.65867C2.32282 3.81472 0 7.33187 0 12.97C0 13.6262 0.363637 13.9924 0.764378 13.9924C1.07607 13.9924 1.41744 13.9161 1.67718 13.4278C2.96846 10.933 4.78664 10.1853 7.65867 10.1853H7.87385V13.0997C7.87385 13.6109 8.24489 13.9924 8.74954 13.9924ZM9.17257 12.3521C9.11317 12.3521 9.06865 12.3062 9.06865 12.2376V9.285C9.06865 9.10955 8.99443 9.03325 8.82376 9.03325H7.82933C4.30427 9.03325 2.05566 10.2921 1.17996 12.2071C1.1577 12.2605 1.14286 12.2834 1.10575 12.2834C1.07607 12.2834 1.0538 12.2605 1.0538 12.1995C1.20223 8.59835 2.73099 4.96676 7.82933 4.96676H8.82376C8.99443 4.96676 9.06865 4.89047 9.06865 4.71499V1.6861C9.06865 1.62507 9.11317 1.57929 9.17998 1.57929C9.22449 1.57929 9.26901 1.60981 9.30612 1.64033L14.59 6.8512C14.6419 6.90465 14.6642 6.95042 14.6642 6.99619C14.6642 7.04196 14.6494 7.08011 14.59 7.14118L9.29871 12.2834C9.26161 12.3292 9.21709 12.3521 9.17257 12.3521Z"
+                fill="white"
+              />
+            </svg>
+            <span class="mobile-display-none">Поделиться</span>
+          </button>
+          <div class="share__content">
+            <button class="share__close">
+              <img
+                src="https://avatars.mds.yandex.net/get-lpc/12602567/41bfe472-dc9e-4c8a-b71f-caae7c705d19/orig"
+                alt="x"
+              />
+            </button>
+            <p class="share__title">Поделиться</p>
+            <div class="share__links">
+              <a href="#" class="share__link share__link--tg"
+                ><img
+                  class="share__link-icon"
+                  src="https://avatars.mds.yandex.net/get-lpc/12373972/9007fd50-0d12-495f-b0bf-c7dcea0f436a/orig"
+                  alt="Telegram"
+              /></a>
+              <a href="#" class="share__link share__link--vk"
+                ><img
+                  class="share__link-icon"
+                  src="https://avatars.mds.yandex.net/get-lpc/12373972/113faa17-dcfb-45d5-846c-6843b992834d/orig"
+                  alt="VK"
+              /></a>
+              <a href="#" class="share__link share__link--ok"
+                ><img
+                  class="share__link-icon"
+                  src="https://avatars.mds.yandex.net/get-lpc/12373972/6ade43c7-71ba-4670-951c-33fe31ed9246/orig"
+                  alt="OK"
+              /></a>
             </div>
+            <div class="share__copy-box">
+              <span class="share__info"> Скопировать ссылку </span>
+              <form class="share__form">
+                <input
+                  class="share__input mobile-display-none"
+                  type="text"
+                  value=""
+                />
+                <button class="share__form-button">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M11.25 7.09808C11.25 5.32365 11.25 4.43581 10.7617 3.8849C10.2739 3.33337 9.48778 3.33337 7.91667 3.33337H6.25C4.67889 3.33337 3.89278 3.33337 3.405 3.8849C2.91667 4.43581 2.91667 5.32365 2.91667 7.09808V10.2353C2.91667 12.0098 2.91667 12.8976 3.405 13.4485C3.89278 14 4.67889 14 6.25 14H7.91667C9.48778 14 10.2739 14 10.7617 13.4485C11.25 12.8976 11.25 12.0098 11.25 10.2353V7.09808Z"
+                      stroke="white"
+                      stroke-opacity="0.7"
+                    />
+                    <path
+                      d="M11.4583 12C11.9004 12 12.3243 11.8017 12.6368 11.4487C12.9494 11.0957 13.125 10.6169 13.125 10.1177V6.35298C13.125 3.98686 13.125 2.80349 12.4739 2.06875C11.8228 1.334 10.7756 1.33337 8.68056 1.33337H6.45833C6.01631 1.33337 5.59238 1.53169 5.27982 1.8847C4.96726 2.23771 4.79167 2.7165 4.79167 3.21573"
+                      stroke="white"
+                      stroke-opacity="0.7"
+                    />
+                  </svg>
+                </button>
+              </form>
+              <div class="share__pop-up">
+                <div class="share__pop-up-wrapper">
+                  <div class="share__pop-up-info">
+                    <span>Ссылка скопирована</span
+                    ><span class="mobile-display-none"
+                      >&puncsp;в&nbsp;буфер обмена</span
+                    >
+                  </div>
+                  <svg
+                    class="mobile-display-none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="14"
+                    viewBox="0 0 15 14"
+                    fill="none"
+                  >
+                    <path
+                      d="M12.5 4.08337L6.25 9.91671L3.125 7.00004"
+                      stroke="#7DCB00"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <div class="video-footer">
-        <div class="container">
-            <div class="video-footer__wrapper">
-                <span class="video-footer__copywrite">&copy;&nbsp;2024 &laquo;Яндекс.Вертикали&raquo;</span>
-                <div class="video-footer__right">
-                    <span class="video-footer__info">Подписывайтесь на&nbsp;нас</span>
-                    <div class="video-footer__links">
-                        <a href="https://www.youtube.com/@ya.travel" class="video-footer__link" target="_blank"><img src="https://avatars.mds.yandex.net/get-lpc/10116223/8b372f56-ee05-42f9-8c8f-0ad25e39cf62/orig" alt="YouTube" class="video-footer__image" /></a>
-                        <a href="https://t.me/yandex_travel" class="video-footer__link" target="_blank"><img src="https://avatars.mds.yandex.net/get-lpc/12373972/a09417b5-36a6-4d38-a796-709f41158586/orig" alt="Telegram" class="video-footer__image" /></a>
-                        <a href="https://dzen.ru/yandextravel" class="video-footer__link" target="_blank"><img src="https://avatars.mds.yandex.net/get-lpc/10116223/52abf0dc-fffb-4124-818d-de8b1c67537d/orig" alt="Dzen" class="video-footer__image" /></a>
-                        <a href="https://vk.com/travel.yandex" class="video-footer__link" target="_blank"><img src="https://avatars.mds.yandex.net/get-lpc/1635340/996e2d48-8f03-4921-8cd3-223dd3e15f07/orig" alt="VK" class="video-footer__image" /></a>
-                    </div>
-                </div>
+      <div class="container">
+        <div class="video-footer__wrapper">
+          <span class="video-footer__copywrite"
+            >&copy;&nbsp;2024 &laquo;Яндекс.Вертикали&raquo;</span
+          >
+          <div class="video-footer__right">
+            <span class="video-footer__info">Подписывайтесь на&nbsp;нас</span>
+            <div class="video-footer__links">
+              <a
+                href="https://www.youtube.com/@ya.travel"
+                class="video-footer__link"
+                target="_blank"
+                ><img
+                  src="https://avatars.mds.yandex.net/get-lpc/10116223/8b372f56-ee05-42f9-8c8f-0ad25e39cf62/orig"
+                  alt="YouTube"
+                  class="video-footer__image"
+              /></a>
+              <a
+                href="https://t.me/yandex_travel"
+                class="video-footer__link"
+                target="_blank"
+                ><img
+                  src="https://avatars.mds.yandex.net/get-lpc/12373972/a09417b5-36a6-4d38-a796-709f41158586/orig"
+                  alt="Telegram"
+                  class="video-footer__image"
+              /></a>
+              <a
+                href="https://dzen.ru/yandextravel"
+                class="video-footer__link"
+                target="_blank"
+                ><img
+                  src="https://avatars.mds.yandex.net/get-lpc/10116223/52abf0dc-fffb-4124-818d-de8b1c67537d/orig"
+                  alt="Dzen"
+                  class="video-footer__image"
+              /></a>
+              <a
+                href="https://vk.com/travel.yandex"
+                class="video-footer__link"
+                target="_blank"
+                ><img
+                  src="https://avatars.mds.yandex.net/get-lpc/1635340/996e2d48-8f03-4921-8cd3-223dd3e15f07/orig"
+                  alt="VK"
+                  class="video-footer__image"
+              /></a>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-
-</body>
-<script defer src="main.js"></script>
-
+  </body>
+  <script defer src="main.js"></script>
 </html>
