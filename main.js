@@ -470,6 +470,18 @@
       setFullscreenData(false);
     } else {
       // The video is not in fullscreen mode
+      requestFullscreen(videoContainer);
+      setFullscreenData(true);
+    }
+  }
+
+  function handleFullscreenSafari() {
+    if (isFullscreen()) {
+      // The video is in fullscreen mode
+      exitFullscreen();
+      setFullscreenData(false);
+    } else {
+      // The video is not in fullscreen mode
       requestFullscreen(currentVideo);
       setFullscreenData(true);
     }
@@ -561,7 +573,8 @@
   });
   
   fullScreenButton.addEventListener("click", (e) => {
-    handleFullscreen();
+    // handleFullscreen();   
+    handleFullscreenSafari();
   });
   
   fullScreenClose.addEventListener("click", (e) => {
