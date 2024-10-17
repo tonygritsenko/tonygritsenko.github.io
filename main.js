@@ -564,6 +564,8 @@
     toggleFullClasses();
   });
 
+  // console.log(currentVideo);
+  
  
 
   fullScreenButton.addEventListener("click", (e) => {
@@ -589,7 +591,7 @@
   });
 
   currentVideo.addEventListener("webkitendfullscreen", () => {
-    currentVideo.controls = true;
+    currentVideo.controls = false;
   });
 
   fullScreenClose.addEventListener("click", (e) => {
